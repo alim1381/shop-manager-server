@@ -11,6 +11,10 @@ export class ShopService {
     return await this.shopModel.findOne({ username });
   }
 
+  async findById(id: string) {
+    return await this.shopModel.findOne({ _id: id }, { password: 0, __v: 0 });
+  }
+
   async createNewShop(registerDto: RegisterDto) {
     const newShop = await this.shopModel.create(registerDto);
     await newShop.save();

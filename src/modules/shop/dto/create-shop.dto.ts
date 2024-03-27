@@ -3,13 +3,13 @@ import { IsNotEmpty, IsString } from "class-validator";
 export class CreateShopDto {
     @IsNotEmpty()
     @IsString()
-    shop_name : String;
+    shop_name : string;
 
     @IsNotEmpty()
     @IsString()
-    username : String;
+    username : string;
 
     @IsNotEmpty()
     @IsString()
-    password : String;
+    password : string;
 }
