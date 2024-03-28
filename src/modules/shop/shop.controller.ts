@@ -10,8 +10,8 @@ export class ShopController {
   // for test
   @Get('all')
   @UseGuards(JwtAuthGuard)
-  getAll(@Req() req: Request) {
-    console.log(req.user)
+  getAll(@Req() req: any) {
+    console.log(req.user.id);
     return 'Yooo';
   }
 }
