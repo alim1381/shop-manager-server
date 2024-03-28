@@ -1,15 +1,18 @@
-import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Model } from 'mongoose';
 import { Products } from './interfaces/products.interface';
 import { Express } from 'express';
 import { saveInStorage } from 'src/common/firebase/firebase.util';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { HistoryService } from '../history/history.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @Inject('PRODUCTS_MODEL') private readonly productsModel: Model<Products>,
+    @Inject(forwardRef(() => HistoryService))
+    private readonly historyService: HistoryService,
   ) {}
 
   async create(
@@ -59,14 +62,28 @@ export class ProductsService {
     )
       throw new HttpException('The amount entered is more than the stock', 400);
 
+    // save prev amount for append to history
+    const prev_amount = product.count;
+
     // Apply changes to the value count
     product.count =
       updateProductDto.type === 'INCREASE'
         ? (product.count + updateProductDto.amount).toString()
         : (parseInt(product.count) - updateProductDto.amount).toString();
 
-    // save in db and return
+    // save product changes in db
     await product.save();
+
+    // create doc for history of change count
+    const newHistory = await this.historyService.create({
+      productId: product.id,
+      type: updateProductDto.type,
+      amount: updateProductDto.amount,
+      prev_value: parseInt(prev_amount),
+      current_value: parseInt(product.count),
+    });
+
+    // return successfuly message
     return `${updateProductDto.type} is Succesfully!`;
   }
 

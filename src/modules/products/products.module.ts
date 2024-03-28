@@ -1,12 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { DatabaseModule } from 'src/configs/database/database.module';
 import { productsProviders } from './providers/products.provider';
+import { HistoryModule } from '../history/history.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, forwardRef(() => HistoryModule)],
   controllers: [ProductsController],
   providers: [...productsProviders, ProductsService],
+  exports: [...productsProviders, ProductsService],
 })
 export class ProductsModule {}
