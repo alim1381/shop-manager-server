@@ -6,6 +6,7 @@ import { Express } from 'express';
 import { saveInStorage } from 'src/common/firebase/firebase.util';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { HistoryService } from '../history/history.service';
+import { SaleProductDto } from './dto/sale-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -87,6 +88,22 @@ export class ProductsService {
     return `${updateProductDto.type} is Succesfully!`;
   }
 
+  async saleProducts(saleProductDto: SaleProductDto, shopId: string) {
+    let success: UpdateProductDto[] = [];
+    let failed: UpdateProductDto[] = [];
+
+    for (let product of saleProductDto.products) {
+      try {
+        product.shopId = shopId;
+        await this.updateCount(product);
+        success.push(product);
+      } catch (error) {
+        failed.push(product);
+      }
+    }
+    return { failed, success };
+  }
+
   async deleteProduct(productId: string, shopId: string) {
     // find product from db
     let product = await this.productsModel.findById(productId);
@@ -95,6 +112,11 @@ export class ProductsService {
 
     // remove product from db
     await product.deleteOne();
+
+    // remove product historys from db
+    await this.historyService.deleteHistoryByProductId(productId);
+
+    // return message
     return 'the product has been successfully removed';
   }
 

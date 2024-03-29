@@ -26,8 +26,13 @@ export class HistoryService {
     const histories = await this.historyModel
       .find({ productId }, { __v: 0 })
       .sort({ createdAt: -1 });
-      
+
     // return values
     return histories;
+  }
+
+  async deleteHistoryByProductId(id: string) {
+    const deletedHistory = await this.historyModel.deleteMany({ productId: id });
+    return deletedHistory;
   }
 }

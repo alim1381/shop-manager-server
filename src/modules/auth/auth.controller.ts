@@ -1,14 +1,32 @@
-import { Controller, Post, Body, HttpException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  Get,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ShopService } from '../shop/shop.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly shopService: ShopService,
   ) {}
+
+  @Get('who-i-am')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('Authorization')
+  async whoIAm(@Req() req: any) {
+    return req.user;
+  }
 
   @Post('register')
   async register(@Body() registerDto: RegisterDto) {

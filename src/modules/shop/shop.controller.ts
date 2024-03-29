@@ -6,12 +6,4 @@ import { Request } from 'express';
 @Controller('shop')
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
-
-  // for test
-  @Get('all')
-  @UseGuards(JwtAuthGuard)
-  getAll(@Req() req: any) {
-    console.log(req.user.id);
-    return 'Yooo';
-  }
 }
