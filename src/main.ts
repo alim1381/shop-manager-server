@@ -15,12 +15,14 @@ async function bootstrap() {
   app.use(
     session({
       secret: 'secret',
+      saveUninitialized: false,
+      resave: false,
     }),
   );
   app.use(passport.initialize());
   app.use(passport.session());
 
-  swaggerConfig(app)
+  swaggerConfig(app);
 
   await app.listen(3000);
 }
