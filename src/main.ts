@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as passport from 'passport';
-import * as session from 'express-session';
+import session from 'express-session';
 import { swaggerConfig } from './configs/swagger/swagger.config';
 
 async function bootstrap() {
