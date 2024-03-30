@@ -1,7 +1,8 @@
 {
   "name": "shop-manager-server",
   "version": "0.0.1",
-  "description": "",
+  "description": "shop manager app",
+  "type": "module",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
