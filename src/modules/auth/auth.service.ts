@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { ShopService } from '../shop/shop.service';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import * as passport from 'passport';
+import passport from 'passport';
 import session from 'express-session';
 import { swaggerConfig } from './configs/swagger/swagger.config';
 
