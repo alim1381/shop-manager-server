@@ -2,7 +2,7 @@
   "name": "shop-manager-server",
   "version": "0.0.1",
   "description": "shop manager app",
-  "type": "module",
+  "type": "commonjs",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
