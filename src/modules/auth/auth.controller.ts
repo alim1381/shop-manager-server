@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { ShopService } from '../shop/shop.service';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 
 @Controller('auth')
 @ApiTags('Auth')

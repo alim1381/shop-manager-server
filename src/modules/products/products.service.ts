@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { Model } from 'mongoose';
 import { Products } from './interfaces/products.interface';
 import { Express } from 'express';
-import { saveInStorage } from 'src/common/firebase/firebase.util';
+import { saveInStorage } from '../../common/firebase/firebase.util';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { HistoryService } from '../history/history.service';
 import { SaleProductDto } from './dto/sale-product.dto';
