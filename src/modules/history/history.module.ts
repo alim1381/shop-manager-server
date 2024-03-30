@@ -2,7 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { HistoryService } from './history.service';
 import { HistoryController } from './history.controller';
 import { historyProviders } from './providers/history.provider';
-import { DatabaseModule } from 'src/configs/database/database.module';
+import { DatabaseModule } from '../../configs/database/database.module';
 import { ProductsModule } from '../products/products.module';
 
 @Module({

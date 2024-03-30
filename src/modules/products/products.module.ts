@@ -1,7 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { DatabaseModule } from 'src/configs/database/database.module';
+import { DatabaseModule } from '../../configs/database/database.module';
 import { productsProviders } from './providers/products.provider';
 import { HistoryModule } from '../history/history.module';
 
