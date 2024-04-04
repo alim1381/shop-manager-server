@@ -8,9 +8,10 @@ import { swaggerConfig } from './configs/swagger/swagger.config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.enableCors({
-    origin: false,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
   app.useGlobalPipes(
     new ValidationPipe({
