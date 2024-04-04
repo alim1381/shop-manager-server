@@ -4,17 +4,21 @@ import { ValidationPipe } from '@nestjs/common';
 import passport from 'passport';
 import session from 'express-session';
 import { swaggerConfig } from './configs/swagger/swagger.config';
-import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(
-    cors({
-      origin: '*',
-      credentials: true, //access-control-allow-credentials:true
-      optionsSuccessStatus: 200,
-    }),
-  );
+  app.enableCors({
+    origin: 'https://shop-manager-client.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: [
+      'Content-Type',
+      'Origin',
+      'X-Requested-With',
+      'Accept',
+      'Authorization',
+    ],
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
