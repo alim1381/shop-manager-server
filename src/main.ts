@@ -8,10 +8,19 @@ import { swaggerConfig } from './configs/swagger/swagger.config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.enableCors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    // allowed headers
+    allowedHeaders: [
+      'Content-Type',
+      'Origin',
+      'X-Requested-With',
+      'Accept',
+      'Authorization',
+    ],
+    // headers exposed to the client
+    exposedHeaders: ['Authorization'],
+    credentials: true,
   });
   app.useGlobalPipes(
     new ValidationPipe({
