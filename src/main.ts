@@ -6,13 +6,9 @@ import session from 'express-session';
 import { swaggerConfig } from './configs/swagger/swagger.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://shop-manager-client.vercel.app',
-      '*',
-    ],
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   });
