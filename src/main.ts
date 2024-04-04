@@ -7,7 +7,15 @@ import { swaggerConfig } from './configs/swagger/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors()
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://shop-manager-client.vercel.app',
+      '*',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
